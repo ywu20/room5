@@ -1,11 +1,13 @@
 import java.util.Collections;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Permutations{
-  public static ArrayList<int> Permutations(int s){
-    ArrayList<int[]> paths = new ArrayList<int[]>();
-    ArrayList<Integer> digits = new ArrayList<Integer>(s);
+  public static ArrayList<String> Permutations(int s){
+    ArrayList<String> paths = new ArrayList<String>();
+    ArrayList<Integer> digits = new ArrayList<Integer>();
 
-   for(int i = 0; i < digits.size(); i++){
+   for(int i = 0; i < s; i++){
      digits.add(i);
    } //Get List of Indexes
 
@@ -14,14 +16,19 @@ public class Permutations{
       factorial = factorial * i;
     } //Method to get factorial
 
-    int[] add = new int[];
+    Object[] add = new Object[s];
+    String numbas = "";
 
     for(int j = 0; j < factorial * 10; j++){
-      Collections.shuffle(digits); //randomizes order of digits
-      
+      Collections.shuffle(digits);
+      add = digits.toArray();
+      numbas = add.toString();
+      //Collections.shuffle(digits) randomizes order of digits
 
-      if(paths.indexOf())
+      if(paths.indexOf(numbas) < 0){
+        paths.add(numbas);
+      }
     }
-
+    return paths;
   }
 }
