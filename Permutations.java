@@ -22,7 +22,7 @@ public class Permutations{
     for(int j = 0; j < factorial * 10; j++){
       Collections.shuffle(digits);
       add = digits.toArray();
-      numbas = add.toString();
+      numbas = Arrays.toString(add);
       //Collections.shuffle(digits) randomizes order of digits
 
       if(paths.indexOf(numbas) < 0){
