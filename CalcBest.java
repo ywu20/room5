@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class CalcBest {
-    private String bestPath;
+    private ArrayList<Integer> bestPath;
     private int bestDistance;
     private ArrayList<String> perms;
 
@@ -9,36 +9,36 @@ public class CalcBest {
         ArrayList<String> paths = new ArrayList<String>();
         ArrayList<Integer> digits = new ArrayList<Integer>();
 
-        for(int i = 0; i < s; i++){
-        digits.add(i);
-        } //Get List of Indexes
-    
+        for (int i = 0; i < s; i++) {
+            digits.add(i);
+        } // Get List of Indexes
+
         int factorial = 1;
-        for(int i = 1; i < s + 1; i++){
-        factorial = factorial * i;
-        } //Method to get factorial
-    
+        for (int i = 1; i < s + 1; i++) {
+            factorial = factorial * i;
+        } // Method to get factorial
+
         Object[] add = new Object[s];
         String numbas = "";
-    
-        for(int j = 0; j < factorial * 10; j++){
-        Collections.shuffle(digits);
-        add = digits.toArray();
-        numbas = Arrays.toString(add);
-        //Collections.shuffle(digits) randomizes order of digits
-    
-        if(paths.indexOf(numbas) < 0){
-            paths.add(numbas);
-        }
+
+        for (int j = 0; j < factorial * 10; j++) {
+            Collections.shuffle(digits);
+            add = digits.toArray();
+            numbas = Arrays.toString(add);
+            // Collections.shuffle(digits) randomizes order of digits
+
+            if (paths.indexOf(numbas) < 0) {
+                paths.add(numbas);
+            }
         }
         return paths;
     }
 
-    public static void removeDuplicates(ArrayList<String> s){  
+    public static void removeDuplicates(ArrayList<String> s) {
         for (int i = s.size() - 1; i < s.size() && i >= 0; i--) {
-          if (s.indexOf(s.get(i)) != i) {
-            s.remove(i);
-          }
+            if (s.indexOf(s.get(i)) != i) {
+                s.remove(i);
+            }
         }
     }
 
@@ -48,30 +48,38 @@ public class CalcBest {
 
     public void calc(int[][] distances) {
         perms = CalcPerms(distances.length);
-        removeDuplicates(perms);
 
-        bestDistance = 2147483647;
-        bestPath = "";
+        bestDistance = 2000000000;
+        bestPath = new ArrayList<Integer>();
 
         for (int i = 0; i < perms.size(); i++) {
             int tempDistance = 0;
             String path = perms.get(i);
-            for (int j = 0; j < path.length() - 1; j++) {
-                tempDistance += distances[j][j+1];
+            String pathClean = path.substring(1, path.length()- 1);
+            pathClean = pathClean.replace(',', ' ');
+            Scanner p = new Scanner(pathClean);
+            ArrayList<Integer> pathArray = new ArrayList<Integer>();
+            while (p.hasNextInt()) {
+                pathArray.add(p.nextInt());
+            }
+            for (int j = 0; j < pathArray.size() - 1; j++) {
+                int a = pathArray.get(j);
+                int b = pathArray.get(j + 1);
+                tempDistance += distances[a][b];
             }
             if (tempDistance < bestDistance) {
-                bestPath = path;
+                bestPath = pathArray;
                 bestDistance = tempDistance;
             }
-        } 
+        }
     }
 
-    public String getBestPath() {
+    public ArrayList<Integer> getBestPath() {
         return bestPath;
     }
 
     public int getBestDistance() {
         return bestDistance;
     }
-    
+
 }
