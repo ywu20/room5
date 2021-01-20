@@ -1,13 +1,13 @@
 import java.util.*;
 
 public class CalcBest {
-    public ArrayList<String> best;
+    private String[] best;
     private ArrayList<String> perms;
 
     private ArrayList<String> CalcPerms(int s) {
         ArrayList<String> paths = new ArrayList<String>();
         ArrayList<Integer> digits = new ArrayList<Integer>();
-    
+
         for(int i = 0; i < s; i++){
         digits.add(i);
         } //Get List of Indexes
@@ -45,10 +45,25 @@ public class CalcBest {
         perms = CalcPerms(distances.length);
         removeDuplicates(perms);
 
-        int bestScore = -2147483647;
-        String bestPath;
+        int bestDistance = 2147483647;
+        String bestPath = "";
 
-        
+        for (int i = 0; i < perms.size(); i++) {
+            int tempDistance = 0;
+            String path = perms.get(i);
+            for (int j = 0; j < path.length() - 1; j++) {
+                tempDistance += distances[j][j+1];
+            }
+            if (tempDistance < bestDistance) {
+                bestPath = path;
+                bestDistance = tempDistance;
+            }
+        } 
 
+        best = {bestPath, bestDistance}
+    }
+
+    public String[] getBest() {
+        return best;
     }
 }
