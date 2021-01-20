@@ -1,7 +1,8 @@
 import java.util.*;
 
 public class CalcBest {
-    private String[] best;
+    private String bestPath;
+    private int bestDistance;
     private ArrayList<String> perms;
 
     private ArrayList<String> CalcPerms(int s) {
@@ -48,10 +49,9 @@ public class CalcBest {
     public void calc(int[][] distances) {
         perms = CalcPerms(distances.length);
         removeDuplicates(perms);
-        best = new String[2];
 
-        int bestDistance = 2147483647;
-        String bestPath = "";
+        bestDistance = 2147483647;
+        bestPath = "";
 
         for (int i = 0; i < perms.size(); i++) {
             int tempDistance = 0;
@@ -64,12 +64,14 @@ public class CalcBest {
                 bestDistance = tempDistance;
             }
         } 
-
-        best[0] = bestPath;
-        best[1] = Integer.toString(bestDistance);
     }
 
-    public String[] getBest() {
-        return best;
+    public String getBestPath() {
+        return bestPath;
     }
+
+    public int getBestDistance() {
+        return bestDistance;
+    }
+    
 }
