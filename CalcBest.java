@@ -42,8 +42,13 @@ public class CalcBest {
     }
 
     public CalcBest(int[][] distances) {
+        calc(distances);
+    }
+
+    public void calc(int[][] distances) {
         perms = CalcPerms(distances.length);
         removeDuplicates(perms);
+        best = new String[2];
 
         int bestDistance = 2147483647;
         String bestPath = "";
@@ -60,7 +65,8 @@ public class CalcBest {
             }
         } 
 
-        best = {bestPath, bestDistance}
+        best[0] = bestPath;
+        best[1] = Integer.toString(bestDistance);
     }
 
     public String[] getBest() {
