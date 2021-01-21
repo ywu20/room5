@@ -35,9 +35,16 @@ public class Cities {
                                  // line.
     }
 
-    System.out.println(Arrays.deepToString(distanceTable));
-    CalcBest calc = new CalcBest(distanceTable);
-    System.out.println(calc.getBestPath()); //ArrayList<Integer>
-    System.out.println(calc.getBestDistance());
+    CalcBest z= new CalcBest(distanceTable);
+    ArrayList<Integer> bestPath = z.getBestPath();
+    for(int i=0;i<bestPath.size();i++){
+      System.out.print(city.get(bestPath.get(i)));
+      if(i!=bestPath.size()-1){
+        System.out.print(" -> ");
+      }
+    }
+    System.out.println();
+    //System.out.println(z.getBestPath());
+    System.out.println(z.getBestDistance());
   }
 }
